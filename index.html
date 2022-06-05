@@ -433,6 +433,11 @@ $(document).on('click', '.js-reset', function() {
   w10_2.stop();  w10_2.reset();
 });
 
+$('span.input-container').keydown(function(e) {
+  str = $('span[contenteditable="true"]');
+  str.replace(/<br>/gi, '');
+});
+
 </script>
 </body>
 </html>

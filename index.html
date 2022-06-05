@@ -433,7 +433,7 @@ $(document).on('click', '.js-reset', function() {
   w10_2.stop();  w10_2.reset();
 });
 
-$('span.input-container').keydown(function(e) {
+$('span.input-container').on('change', function(e) {
   str = $('span.input-container');
   str.toString().replace(/<br>/gi, '');
 });

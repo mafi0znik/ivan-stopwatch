@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta charset=utf-8 />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Ivan's Stopwatch</title>
+<style>
+  body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    background-color: black;
+  }
+
+  .stopwatch-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    font-size: 16px;
+    padding: 3px;
+    background-clip: content-box;
+  }
+  button.button-start {
+    border: 2px solid rgba(27, 61, 39);
+    background-color: rgba(27, 61, 39);
+    color: rgba(46, 209, 87);
+  }
+  button.button-stop {
+    border-color: #c00;
+    color: #c00;
+    background: #fff;
+  }
+  button.button-reset {
+    border: 2px solid #4D4D4D;
+    background-color: #4D4D4D;
+    color: #F5F5F5;
+  }
+
+  .list-stopwatch {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+  }
+  .list-stopwatch li {
+    padding: 10px 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #4D4D4D;
+  }
+  .list-stopwatch li:last-child {
+    border-bottom: none;
+  }
+  .stopwatch-control {
+    margin: 0 10px;
+  }
+
+  .stopwatch {
+    padding: 5px;
+    margin: 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .stopwatch span {
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+  }
+  .stopwatch .button-stop {
+    margin: 5px 0;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 3px;
+    background-clip: content-box;
+    border: 2px solid rgba(61, 22, 22);
+    background-color: rgba(61, 22, 22);
+    color: rgba(223, 59, 50);
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="stopwatch-container">
+  <button class="button-reset js-reset">Сброс</button>
+  <ul class="list-stopwatch">
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w1_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_1">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w1_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w2_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_2">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w2_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w3_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_3">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w3_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w4_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_4">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w4_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w5_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_5">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w5_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w6_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_6">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w6_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w7_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_7">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w7_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w8_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_8">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w8_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w9_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_9">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w9_2"></div>
+    </li>
+    <li class="stopwatch-row">
+      <div class="basic stopwatch left" id="w10_1"></div>
+      <div class="stopwatch-control">
+        <button class="stopwatch-button button-start js-start-row" id="start_10">Старт</button>
+      </div>
+      <div class="basic stopwatch right" id="w10_2"></div>
+    </li>
+  </ul>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+var Stopwatch = function(elem, options) {
+  
+  var timer       = createTimer(),
+      startButton = createButton("Старт", start, "button-start"),
+      stopButton  = createButton("Стоп", stop, "button-stop"),
+      resetButton = createButton("Сброс", reset, "button-reset"),
+      offset,
+      clock,
+      interval;
+  
+  // default options
+  options = options || {};
+  options.delay = options.delay || 1;
+ 
+  // append elements     
+  elem.appendChild(timer);
+  //elem.appendChild(startButton);
+  elem.appendChild(stopButton);
+  //elem.appendChild(resetButton);
+  
+  // initialize
+  reset();
+  
+  // private functions
+  function createTimer() {
+    return document.createElement("span");
+  }
+  
+  function createButton(action, handler, class_name) {
+    var a = document.createElement("a");
+    a.classList.add(class_name);
+    a.href = "#" + action;
+    a.innerHTML = action;
+    a.addEventListener("click", function(event) {
+      handler();
+      event.preventDefault();
+    });
+    return a;
+  }
+  
+  function start() {
+    if (!interval) {
+      offset   = Date.now();
+      interval = setInterval(update, options.delay);
+    }
+  }
+  
+  function stop() {
+    if (interval) {
+      clearInterval(interval);
+      interval = null;
+    }
+  }
+  
+  function reset() {
+    clock = 0;
+    render(0);
+  }
+  
+  function update() {
+    clock += delta();
+    render();
+  }
+  
+  function render() {
+    timer.innerHTML = moment().minute(0).second(0).millisecond(clock).format('mm:ss.SS'); 
+  }
+  
+  function delta() {
+    var now = Date.now(),
+        d = now - offset;
+    
+    offset = now;
+    return d;
+  }
+  
+  // public API
+  this.start  = start;
+  this.stop   = stop;
+  this.reset  = reset;
+};
+
+var el1_1 = document.getElementById("w1_1");
+w1_1 = new Stopwatch(el1_1);
+var el1_2 = document.getElementById("w1_2");
+w1_2 = new Stopwatch(el1_2);
+
+var el2_1 = document.getElementById("w2_1");
+w2_1 = new Stopwatch(el2_1);
+var el2_2 = document.getElementById("w2_2");
+w2_2 = new Stopwatch(el2_2);
+
+var el3_1 = document.getElementById("w3_1");
+w3_1 = new Stopwatch(el3_1);
+var el3_2 = document.getElementById("w3_2");
+w3_2 = new Stopwatch(el3_2);
+
+var el4_1 = document.getElementById("w4_1");
+w4_1 = new Stopwatch(el4_1);
+var el4_2 = document.getElementById("w4_2");
+w4_2 = new Stopwatch(el4_2);
+
+var el5_1 = document.getElementById("w5_1");
+w5_1 = new Stopwatch(el5_1);
+var el5_2 = document.getElementById("w5_2");
+w5_2 = new Stopwatch(el5_2);
+
+var el6_1 = document.getElementById("w6_1");
+w6_1 = new Stopwatch(el6_1);
+var el6_2 = document.getElementById("w6_2");
+w6_2 = new Stopwatch(el6_2);
+
+var el7_1 = document.getElementById("w7_1");
+w7_1 = new Stopwatch(el7_1);
+var el7_2 = document.getElementById("w7_2");
+w7_2 = new Stopwatch(el7_2);
+
+var el8_1 = document.getElementById("w8_1");
+w8_1 = new Stopwatch(el8_1);
+var el8_2 = document.getElementById("w8_2");
+w8_2 = new Stopwatch(el8_2);
+
+var el9_1 = document.getElementById("w9_1");
+w9_1 = new Stopwatch(el9_1);
+var el9_2 = document.getElementById("w9_2");
+w9_2 = new Stopwatch(el9_2);
+
+var el10_1 = document.getElementById("w10_1");
+w10_1 = new Stopwatch(el10_1);
+var el10_2 = document.getElementById("w10_2");
+w_2 = new Stopwatch(el10_2);
+
+$('.stopwatch-row').on('click', '.js-start-row', function() {
+  var $this_id = $(this).attr('id');
+
+  switch ($this_id) {
+    case "start_1":
+      w1_1.start();
+      w1_2.start();
+      break;
+    case "start_2":
+      w2_1.start();
+      w2_2.start();
+      break;
+    case "start_3":
+      w3_1.start();
+      w3_2.start();
+      break;
+    case "start_4":
+      w4_1.start();
+      w4_2.start();
+      break;
+    case "start_5":
+      w5_1.start();
+      w5_2.start();
+      break;
+    case "start_6":
+      w6_1.start();
+      w6_2.start();
+      break;
+    case "start_7":
+      w7_1.start();
+      w7_2.start();
+      break;
+    case "start_8":
+      w8_1.start();
+      w8_2.start();
+      break;
+    case "start_9":
+      w9_1.start();
+      w9_2.start();
+      break;
+    case "start_10":
+      w10_1.start();
+      w10_2.start();
+      break;
+    default:
+      console.log("Такого элемента нет");
+  }
+
+});
+
+$(document).on('click', '.js-reset', function() {
+  w1_1.stop();  w1_1.reset();
+  w1_2.stop();  w1_2.reset();
+  w2_1.stop();  w2_1.reset();
+  w2_2.stop();  w2_2.reset();
+  w3_1.stop();  w3_1.reset();
+  w3_2.stop();  w3_2.reset();
+  w4_1.stop();  w4_1.reset();
+  w4_2.stop();  w4_2.reset();
+  w5_1.stop();  w5_1.reset();
+  w5_2.stop();  w5_2.reset();
+  w6_1.stop();  w6_1.reset();
+  w6_2.stop();  w6_2.reset();
+  w7_1.stop();  w7_1.reset();
+  w7_2.stop();  w7_2.reset();
+  w8_1.stop();  w8_1.reset();
+  w8_2.stop();  w8_2.reset();
+  w9_1.stop();  w9_1.reset();
+  w9_2.stop();  w9_2.reset();
+  w10_1.stop();  w10_1.reset();
+  w10_2.stop();  w10_2.reset();
+});
+
+</script>
+</body>
+</html>

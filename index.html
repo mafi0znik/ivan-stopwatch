@@ -434,8 +434,8 @@ $(document).on('click', '.js-reset', function() {
 });
 
 $('span.input-container').keydown(function(e) {
-  str = $('span[contenteditable="true"]');
-  str.replace(/<br>/gi, '');
+  str = $('span.input-container');
+  str.toString().replace(/<br>/gi, '');
 });
 
 </script>

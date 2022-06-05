@@ -81,11 +81,14 @@
   }
   .stopwatch-control {
     margin: 0 10px;
+    width: 20%;
+    text-align: center;
   }
 
   .stopwatch {
+    width: 40%;
     padding: 5px;
-    margin: 5px;
+    margin: 5px 0;
     color: white;
     display: flex;
     flex-direction: column;
@@ -96,6 +99,23 @@
     font-weight: bold;
     display: block;
     text-align: center;
+  }
+  .stopwatch span.input-container {
+    display: inline-block;
+    position: relative;
+    outline: none;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: normal;
+    border-bottom: 1px dashed white;
+    margin-bottom: 5px;
+  }
+  .stopwatch span.input-container:empty {
+    border-color: #4D4D4D;
+  }
+  .stopwatch span.input-container:empty:before {
+    content: 'Имя';
+    color: #4D4D4D;
   }
   .stopwatch .button-stop {
     margin: 5px 0;
@@ -197,6 +217,7 @@
 var Stopwatch = function(elem, options) {
   
   var timer       = createTimer(),
+      inputContainer = createInputC(),
       startButton = createButton("Старт", start, "button-start"),
       stopButton  = createButton("Стоп", stop, "button-stop"),
       resetButton = createButton("Сброс", reset, "button-reset"),
@@ -209,6 +230,7 @@ var Stopwatch = function(elem, options) {
   options.delay = options.delay || 1;
  
   // append elements     
+  elem.appendChild(inputContainer);
   elem.appendChild(timer);
   //elem.appendChild(startButton);
   elem.appendChild(stopButton);
@@ -232,6 +254,15 @@ var Stopwatch = function(elem, options) {
       event.preventDefault();
     });
     return a;
+  }
+
+  function createInputC() {
+    var ic = document.createElement("span");
+    ic.classList.add('input-container');
+    ic.contentEditable = "true";
+    ic.setAttribute("contenteditable", "true");
+    ic.placeholder = "Имя";
+    return ic;
   }
   
   function start() {

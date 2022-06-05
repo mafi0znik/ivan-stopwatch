@@ -87,8 +87,7 @@
 
   .stopwatch {
     width: 37.5%;
-    padding: 5px;
-    margin: 5px 0;
+    padding: 10px 5px;
     color: white;
     display: flex;
     flex-direction: column;
@@ -101,25 +100,31 @@
     text-align: center;
   }
   .stopwatch span.input-container {
-    display: inline-block;
     position: relative;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .stopwatch span.input-container::after {
+    position: absolute;
+    content: '';
+    width: 50%;
+    border-bottom: 1px dashed white;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+  .stopwatch span.input-container .input-name {
+    color: white;
+    background: none;
+    border: none;
+    width: 100%;
     outline: none;
     font-size: 18px;
     font-style: italic;
     font-weight: normal;
-    border-bottom: 1px dashed white;
-    margin-bottom: 5px;
+    text-align: center;
   }
-  .stopwatch span.input-container::before {
-    content: '';
-  }
-  .stopwatch span.input-container:empty {
-    border-color: #4D4D4D;
-  }
-  .stopwatch span.input-container:empty::before {
-    content: 'Имя';
-    color: #4D4D4D;
-  }
+
   .stopwatch .button-stop {
     margin: 5px 0;
     text-decoration: none;
@@ -220,6 +225,7 @@
 var Stopwatch = function(elem, options) {
   
   var timer       = createTimer(),
+      inputName = createInputName(),
       inputContainer = createInputC(),
       startButton = createButton("Старт", start, "button-start"),
       stopButton  = createButton("Стоп", stop, "button-stop"),
@@ -234,6 +240,7 @@ var Stopwatch = function(elem, options) {
  
   // append elements     
   elem.appendChild(inputContainer);
+  inputContainer.appendChild(inputName);
   elem.appendChild(timer);
   //elem.appendChild(startButton);
   elem.appendChild(stopButton);
@@ -259,12 +266,16 @@ var Stopwatch = function(elem, options) {
     return a;
   }
 
+  function createInputName() {
+    var i = document.createElement("input");
+    i.classList.add('input-name');
+    i.placeholder = "Имя";
+    return i;
+  }
+
   function createInputC() {
     var ic = document.createElement("span");
     ic.classList.add('input-container');
-    ic.contentEditable = "true";
-    ic.setAttribute("contenteditable", "true");
-    ic.placeholder = "Имя";
     return ic;
   }
   
@@ -431,11 +442,6 @@ $(document).on('click', '.js-reset', function() {
   w9_2.stop();  w9_2.reset();
   w10_1.stop();  w10_1.reset();
   w10_2.stop();  w10_2.reset();
-});
-
-$('span.input-container').on('change', function(e) {
-  str = $('span.input-container');
-  str.toString().replace(/<br>/gi, '');
 });
 
 </script>

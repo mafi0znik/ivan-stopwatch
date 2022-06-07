@@ -34,16 +34,16 @@
     background-clip: content-box;
   }
   button.button-start {
-    border: 2px solid rgba(27, 61, 39);
-    background-color: rgba(27, 61, 39);
-    color: rgba(46, 209, 87);
+    border: 2px solid #1b3d27;
+    background-color: #1b3d27;
+    color: #2ed157;
   }
-  button.button-stop {
-    border-color: #c00;
-    color: #c00;
-    background: #fff;
+  button.button-stop, .stopwatch .button-stop {
+    border: 2px solid #3d1616;
+    background-color: #3d1616;
+    color: #df3b32;
   }
-  button.button-reset {
+  button.button-reset, .stopwatch .button-reset {
     border: 2px solid #4D4D4D;
     background-color: #4D4D4D;
     color: #F5F5F5;
@@ -52,11 +52,12 @@
   .list-stopwatch {
     list-style-type: none;
     padding: 0;
+    margin: 0;
     width: 100%;
   }
   .list-stopwatch li {
     position: relative;
-    padding: 10px 0;
+    padding: 0;
     margin: 0;
     display: flex;
     align-items: center;
@@ -114,7 +115,7 @@
     left: 0;
     right: 0;
   }
-  .stopwatch span.input-container .input-name {
+  .stopwatch .input-container .input-name {
     color: white;
     background: none;
     border: none;
@@ -125,20 +126,31 @@
     font-weight: normal;
     text-align: center;
   }
-
-  .stopwatch .button-stop {
-    margin: 5px 0;
+  .stopwatch .buttons-container{
+    margin-top: 5px;
+    display: flex;
+  }
+  .stopwatch .button-stop, .stopwatch .button-reset {
+    margin: 0 5px;
     text-decoration: none;
     font-size: 16px;
     padding: 3px;
     background-clip: content-box;
-    border: 2px solid rgba(61, 22, 22);
-    background-color: rgba(61, 22, 22);
-    color: rgba(223, 59, 50);
-    width: 100%;
+    width: 35px;
     height: 35px;
-    line-height: 35px;
     text-align: center;
+    display: inline-block;
+    border-radius: 50%;
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+  }
+  .stopwatch .button-stop {
+    background-image: url('./stop.png');
+  }
+  .stopwatch .button-reset {
+    background-image: url('./rotated.png');
+    background-size: 65%;
   }
 </style>
 </head>
@@ -189,7 +201,7 @@
       </div>
       <div class="basic stopwatch right" id="w6_2"></div>
     </li>
-    <li class="stopwatch-row">
+    <!-- <li class="stopwatch-row">
       <div class="basic stopwatch left" id="w7_1"></div>
       <div class="stopwatch-control">
         <button class="stopwatch-button button-start js-start-row" id="start_7">Старт</button>
@@ -216,7 +228,7 @@
         <button class="stopwatch-button button-start js-start-row" id="start_10">Старт</button>
       </div>
       <div class="basic stopwatch right" id="w10_2"></div>
-    </li>
+    </li> -->
   </ul>
 </div>
 
@@ -228,6 +240,7 @@ var Stopwatch = function(elem, options) {
   var timer       = createTimer(),
       inputName = createInputName(),
       inputContainer = createInputC(),
+      buttonsContainer = createButtonsC(),
       startButton = createButton("Старт", start, "button-start"),
       stopButton  = createButton("Стоп", stop, "button-stop"),
       resetButton = createButton("Сброс", reset, "button-reset"),
@@ -243,9 +256,10 @@ var Stopwatch = function(elem, options) {
   elem.appendChild(inputContainer);
   inputContainer.appendChild(inputName);
   elem.appendChild(timer);
-  //elem.appendChild(startButton);
-  elem.appendChild(stopButton);
-  //elem.appendChild(resetButton);
+  elem.appendChild(buttonsContainer);
+  //buttonsContainer.appendChild(startButton);
+  buttonsContainer.appendChild(stopButton);
+  buttonsContainer.appendChild(resetButton);
   
   // initialize
   reset();
@@ -255,11 +269,17 @@ var Stopwatch = function(elem, options) {
     return document.createElement("span");
   }
   
+  function createButtonsC() {
+    var bc = document.createElement("div");
+    bc.classList.add('buttons-container');
+    return bc;
+  }
+
   function createButton(action, handler, class_name) {
     var a = document.createElement("a");
     a.classList.add(class_name);
     a.href = "#" + action;
-    a.innerHTML = action;
+    //a.innerHTML = action;
     a.addEventListener("click", function(event) {
       handler();
       event.preventDefault();
@@ -352,25 +372,25 @@ w6_1 = new Stopwatch(el6_1);
 var el6_2 = document.getElementById("w6_2");
 w6_2 = new Stopwatch(el6_2);
 
-var el7_1 = document.getElementById("w7_1");
-w7_1 = new Stopwatch(el7_1);
-var el7_2 = document.getElementById("w7_2");
-w7_2 = new Stopwatch(el7_2);
+// var el7_1 = document.getElementById("w7_1");
+// w7_1 = new Stopwatch(el7_1);
+// var el7_2 = document.getElementById("w7_2");
+// w7_2 = new Stopwatch(el7_2);
 
-var el8_1 = document.getElementById("w8_1");
-w8_1 = new Stopwatch(el8_1);
-var el8_2 = document.getElementById("w8_2");
-w8_2 = new Stopwatch(el8_2);
+// var el8_1 = document.getElementById("w8_1");
+// w8_1 = new Stopwatch(el8_1);
+// var el8_2 = document.getElementById("w8_2");
+// w8_2 = new Stopwatch(el8_2);
 
-var el9_1 = document.getElementById("w9_1");
-w9_1 = new Stopwatch(el9_1);
-var el9_2 = document.getElementById("w9_2");
-w9_2 = new Stopwatch(el9_2);
+// var el9_1 = document.getElementById("w9_1");
+// w9_1 = new Stopwatch(el9_1);
+// var el9_2 = document.getElementById("w9_2");
+// w9_2 = new Stopwatch(el9_2);
 
-var el10_1 = document.getElementById("w10_1");
-w10_1 = new Stopwatch(el10_1);
-var el10_2 = document.getElementById("w10_2");
-w10_2 = new Stopwatch(el10_2);
+// var el10_1 = document.getElementById("w10_1");
+// w10_1 = new Stopwatch(el10_1);
+// var el10_2 = document.getElementById("w10_2");
+// w10_2 = new Stopwatch(el10_2);
 
 $('.stopwatch-row').on('click', '.js-start-row', function() {
   var $this_id = $(this).attr('id');
@@ -400,22 +420,22 @@ $('.stopwatch-row').on('click', '.js-start-row', function() {
       w6_1.start();
       w6_2.start();
       break;
-    case "start_7":
-      w7_1.start();
-      w7_2.start();
-      break;
-    case "start_8":
-      w8_1.start();
-      w8_2.start();
-      break;
-    case "start_9":
-      w9_1.start();
-      w9_2.start();
-      break;
-    case "start_10":
-      w10_1.start();
-      w10_2.start();
-      break;
+    // case "start_7":
+    //   w7_1.start();
+    //   w7_2.start();
+    //   break;
+    // case "start_8":
+    //   w8_1.start();
+    //   w8_2.start();
+    //   break;
+    // case "start_9":
+    //   w9_1.start();
+    //   w9_2.start();
+    //   break;
+    // case "start_10":
+    //   w10_1.start();
+    //   w10_2.start();
+    //   break;
     default:
       console.log("Такого элемента нет");
   }
@@ -435,14 +455,14 @@ $(document).on('click', '.js-reset', function() {
   w5_2.stop();  w5_2.reset();
   w6_1.stop();  w6_1.reset();
   w6_2.stop();  w6_2.reset();
-  w7_1.stop();  w7_1.reset();
-  w7_2.stop();  w7_2.reset();
-  w8_1.stop();  w8_1.reset();
-  w8_2.stop();  w8_2.reset();
-  w9_1.stop();  w9_1.reset();
-  w9_2.stop();  w9_2.reset();
-  w10_1.stop();  w10_1.reset();
-  w10_2.stop();  w10_2.reset();
+  // w7_1.stop();  w7_1.reset();
+  // w7_2.stop();  w7_2.reset();
+  // w8_1.stop();  w8_1.reset();
+  // w8_2.stop();  w8_2.reset();
+  // w9_1.stop();  w9_1.reset();
+  // w9_2.stop();  w9_2.reset();
+  // w10_1.stop();  w10_1.reset();
+  // w10_2.stop();  w10_2.reset();
 });
 
 </script>
